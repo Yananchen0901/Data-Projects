@@ -32,6 +32,7 @@ Cells.Clear
     
     End With
 End Sub
+
 Sub pull_incomedata()
 Dim year_2016 As Range
 Dim year_2017 As Range
@@ -77,7 +78,6 @@ Worksheets("Data Entry Sheet").Range("B30").Value = Worksheets("Web Data").Cells
 Worksheets("Data Entry Sheet").Range("B31").Value = Worksheets("Web Data").Cells(EBIT.Row, year_2016.Column).Value
 Worksheets("Data Entry Sheet").Range("B32").Value = Worksheets("Web Data").Cells(EBIT.Row, year_2017.Column).Value
 Worksheets("Data Entry Sheet").Range("B33").Value = Worksheets("Web Data").Cells(EBIT.Row, year_2018.Column).Value
-
 End Sub
 
 Sub pull_balancedata()
@@ -213,6 +213,7 @@ ActiveCell.FormulaR1C1 = _
 Worksheets("Data Entry Sheet").Range("B57").Value = Cells(PE.Row, PE.Column + 1).Value
         
 End Sub
+
 Sub pull_companyprofile()
 
 Dim address As Range
@@ -239,7 +240,4 @@ Worksheets("Data Entry Sheet").Range("B2").Value = Cells(company_name.Row, compa
 Cells(address.Row + 2, address.Column + 1).Select
     ActiveCell.FormulaR1C1 = "=RC[-1]&"", ""&R[1]C[-1]&"", ""&R[2]C[-1]"
 Worksheets("Data Entry Sheet").Range("B7").Value = Cells(address.Row + 2, address.Column + 1).Value
-
-
-
 End Sub
