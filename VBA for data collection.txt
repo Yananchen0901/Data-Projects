@@ -1,0 +1,245 @@
+
+Sub Copy_data()
+'
+' Copy_data Macro
+'
+' Keyboard Shortcut: Ctrl+Shift+C
+'
+Cells.Clear
+
+    With ActiveSheet.QueryTables.Add(Connection:= _
+        "FINDER;/Users/yananchen/Library/Group Containers/UBF8T346G9.Office/User Content.localized/Queries/CERN_income.txt" _
+        , Destination:=Range("$A$1"))
+        .Name = "CERN_income_1"
+        .FieldNames = True
+        .RowNumbers = False
+        .FillAdjacentFormulas = False
+        .PreserveFormatting = False
+        .RefreshOnFileOpen = False
+        .BackgroundQuery = True
+        .RefreshStyle = xlInsertDeleteCells
+        .SavePassword = False
+        .SaveData = True
+        .RefreshPeriod = False
+        .WebSelectionType = xlEntirePage
+        .WebFormatting = xlWebFormattingAll
+        .WebPreFormattedTextToColumns = False
+        .WebConsecutiveDelimitersAsOne = True
+        .WebSingleBlockTextImport = False
+        .WebDisableDateRecognition = False
+        .WebDisableRedirections = True
+        .Refresh BackgroundQuery:=False
+    
+    End With
+End Sub
+Sub pull_incomedata()
+Dim year_2016 As Range
+Dim year_2017 As Range
+Dim year_2018 As Range
+Dim sales_revenue As Range
+Dim cost_of_Goods As Range
+Dim Gross_Income As Range
+Dim Research As Range
+Dim Net_income As Range
+Dim EBIT As Range
+
+Set year_2016 = Worksheets("Web Data").Range("A:G").Find(2016)
+Set year_2017 = Worksheets("Web Data").Range("A:G").Find(2017)
+Set year_2018 = Worksheets("Web Data").Range("A:G").Find(2018)
+
+Set sales_revenue = Worksheets("Web Data").Range("A:G").Find("Sales/Revenue")
+Set cost_of_Goods = Worksheets("Web Data").Range("A:G").Find("Cost of Goods Sold (COGS) incl. D&A")
+Set Gross_Income = Worksheets("Web Data").Range("A:G").Find("Gross Income")
+Set Research = Worksheets("Web Data").Range("A:G").Find("Research & Development")
+Set Net_income = Worksheets("Web Data").Range("A:G").Find("Net Income")
+Set EBIT = Worksheets("Web Data").Range("A:G").Find("EBIT")
+
+Worksheets("Data Entry Sheet").Range("B16").Value = Worksheets("Web Data").Cells(sales_revenue.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B17").Value = Worksheets("Web Data").Cells(sales_revenue.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B18").Value = Worksheets("Web Data").Cells(sales_revenue.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B19").Value = Worksheets("Web Data").Cells(cost_of_Goods.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B20").Value = Worksheets("Web Data").Cells(cost_of_Goods.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B21").Value = Worksheets("Web Data").Cells(cost_of_Goods.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B22").Value = Worksheets("Web Data").Cells(Gross_Income.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B23").Value = Worksheets("Web Data").Cells(Gross_Income.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B24").Value = Worksheets("Web Data").Cells(Gross_Income.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B25").Value = Worksheets("Web Data").Cells(Research.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B26").Value = Worksheets("Web Data").Cells(Research.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B27").Value = Worksheets("Web Data").Cells(Research.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B28").Value = Worksheets("Web Data").Cells(Net_income.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B29").Value = Worksheets("Web Data").Cells(Net_income.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B30").Value = Worksheets("Web Data").Cells(Net_income.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B31").Value = Worksheets("Web Data").Cells(EBIT.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B32").Value = Worksheets("Web Data").Cells(EBIT.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B33").Value = Worksheets("Web Data").Cells(EBIT.Row, year_2018.Column).Value
+
+End Sub
+
+Sub pull_balancedata()
+Dim year_2016 As Range
+Dim year_2017 As Range
+Dim year_2018 As Range
+Dim total_accounts As Range
+Dim total_current As Range
+Dim Property As Range
+Dim Intangible As Range
+Dim Accrued As Range
+Dim Deferred As Range
+Dim Current_ratio As Range
+Dim Cash_ratio As Range
+Dim Asset_turnover As Range
+Dim Fiscal_year As Range
+
+Set year_2016 = Worksheets("Web Data").Range("A:G").Find(2016)
+Set year_2017 = Worksheets("Web Data").Range("A:G").Find(2017)
+Set year_2018 = Worksheets("Web Data").Range("A:G").Find(2018)
+
+Set total_accounts = Worksheets("Web Data").Range("A:A").Find("Total Accounts Receivable")
+Set total_current = Worksheets("Web Data").Range("A:A").Find("Total Current Assets")
+Set Property = Worksheets("Web Data").Range("A:A").Find("Property, Plant & Equipment - Gross")
+Set Intangible = Worksheets("Web Data").Range("A:A").Find("Intangible Assets")
+Set Accrued = Worksheets("Web Data").Range("A:A").Find("Accrued Payroll")
+Set Deferred = Worksheets("Web Data").Range("A:A").Find("Deferred Taxes")
+Set Current_ratio = Worksheets("Web Data").Range("A:A").Find("Current Ratio")
+Set Quick_ratio = Worksheets("Web Data").Range("A:A").Find("Quick Ratio")
+Set Asset_turnover = Worksheets("Web Data").Range("A:A").Find("Asset Turnover")
+Set Fiscal_year = Worksheets("Web Data").Range("A:A").Find("Fiscal year")
+
+Cells(Fiscal_year.Row - 1, Fiscal_year.Column).Value = Split(Fiscal_year, ". ")
+Cells(Fiscal_year.Row - 1, Fiscal_year.Column + 1).Value = Mid(Cells(Fiscal_year.Row - 1, Fiscal_year.Column), 15)
+Worksheets("Data Entry Sheet").Range("B10").Value = Worksheets("Web Data").Cells(Fiscal_year.Row - 1, Fiscal_year.Column + 1).Value
+
+Worksheets("Data Entry Sheet").Range("B34").Value = Worksheets("Web Data").Cells(total_accounts.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B35").Value = Worksheets("Web Data").Cells(total_accounts.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B36").Value = Worksheets("Web Data").Cells(total_accounts.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B37").Value = Worksheets("Web Data").Cells(total_current.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B38").Value = Worksheets("Web Data").Cells(total_current.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B39").Value = Worksheets("Web Data").Cells(total_current.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B40").Value = Worksheets("Web Data").Cells(Property.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B41").Value = Worksheets("Web Data").Cells(Property.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B42").Value = Worksheets("Web Data").Cells(Property.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B43").Value = Worksheets("Web Data").Cells(Intangible.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B44").Value = Worksheets("Web Data").Cells(Intangible.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B45").Value = Worksheets("Web Data").Cells(Intangible.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B46").Value = Worksheets("Web Data").Cells(Accrued.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B47").Value = Worksheets("Web Data").Cells(Accrued.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B48").Value = Worksheets("Web Data").Cells(Accrued.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B49").Value = Worksheets("Web Data").Cells(Deferred.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B50").Value = Worksheets("Web Data").Cells(Deferred.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B51").Value = Worksheets("Web Data").Cells(Deferred.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B58").Value = Worksheets("Web Data").Cells(Current_ratio.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B59").Value = Worksheets("Web Data").Cells(Current_ratio.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B60").Value = Worksheets("Web Data").Cells(Current_ratio.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B61").Value = Worksheets("Web Data").Cells(Quick_ratio.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B62").Value = Worksheets("Web Data").Cells(Quick_ratio.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B63").Value = Worksheets("Web Data").Cells(Quick_ratio.Row, year_2018.Column).Value
+
+Worksheets("Data Entry Sheet").Range("B66").Value = Worksheets("Web Data").Cells(Asset_turnover.Row, year_2018.Column).Value
+
+End Sub
+
+Sub pull_cashflowdata()
+Dim year_2016 As Range
+Dim year_2017 As Range
+Dim year_2018 As Range
+Dim investment_tax As Range
+Dim FS_Value As Range
+
+Set year_2016 = Worksheets("Web Data").Range("A:G").Find(2016)
+Set year_2017 = Worksheets("Web Data").Range("A:G").Find(2017)
+Set year_2018 = Worksheets("Web Data").Range("A:G").Find(2018)
+
+Set investment_tax = Worksheets("Web Data").Range("A:G").Find("Deferred Taxes & Investment Tax Credit")
+Set FS_Value = Worksheets("Web Data").Range("A:A").Find("All values", After:=investment_tax)
+
+Worksheets("Data Entry Sheet").Range("B52").Value = Worksheets("Web Data").Cells(investment_tax.Row, year_2016.Column).Value
+Worksheets("Data Entry Sheet").Range("B53").Value = Worksheets("Web Data").Cells(investment_tax.Row, year_2017.Column).Value
+Worksheets("Data Entry Sheet").Range("B54").Value = Worksheets("Web Data").Cells(investment_tax.Row, year_2018.Column).Value
+Worksheets("Data Entry Sheet").Range("B11").Value = Worksheets("Web Data").Cells(FS_Value.Row, FS_Value.Column).Value
+
+
+End Sub
+
+Sub pull_financialdata()
+
+Dim gross_margin As Range
+Dim operating_margin As Range
+Dim net_margin As Range
+Dim Capital As Range
+Dim PE As Range
+
+Set gross_margin = Worksheets("Web Data").Range("A:A").Find("Gross Margin")
+Set operating_margin = Worksheets("Web Data").Range("A:A").Find("Operating Margin")
+Set net_margin = Worksheets("Web Data").Range("A:A").Find("Net Margin")
+Set Capital = Worksheets("Web Data").Range("A:A").Find("Capital Expenditure")
+Set PE = Worksheets("Web Data").Range("A:A").Find("P/E Ratio (TTM)")
+
+Cells(gross_margin.Row, gross_margin.Column + 1).Select
+ActiveCell.FormulaR1C1 = _
+        "=RIGHT(RC[-1],LEN(RC[-1])-MIN(SEARCH({0,1,2,3,4,5,6,7,8,9},RC[-1]&""0123456789""))+1)"
+Worksheets("Data Entry Sheet").Range("B69").Value = Cells(gross_margin.Row, gross_margin.Column + 1).Value
+        
+
+Cells(operating_margin.Row, operating_margin.Column + 1).Select
+ActiveCell.FormulaR1C1 = _
+        "=RIGHT(RC[-1],LEN(RC[-1])-MIN(SEARCH({0,1,2,3,4,5,6,7,8,9},RC[-1]&""0123456789""))+1)"
+Worksheets("Data Entry Sheet").Range("B72").Value = Cells(operating_margin.Row, operating_margin.Column + 1).Value
+
+Cells(net_margin.Row, net_margin.Column + 1).Select
+ActiveCell.FormulaR1C1 = _
+        "=RIGHT(RC[-1],LEN(RC[-1])-MIN(SEARCH({0,1,2,3,4,5,6,7,8,9},RC[-1]&""0123456789""))+1)"
+Worksheets("Data Entry Sheet").Range("B75").Value = Cells(net_margin.Row, net_margin.Column + 1).Value
+
+Cells(Capital.Row, Capital.Column + 1).Select
+ActiveCell.FormulaR1C1 = _
+        "=RIGHT(RC[-1],LEN(RC[-1])-MIN(SEARCH({0,1,2,3,4,5,6,7,8,9},RC[-1]&""0123456789""))+1)"
+Worksheets("Data Entry Sheet").Range("B102").Value = Cells(Capital.Row, Capital.Column + 1).Value
+
+Cells(PE.Row, PE.Column + 1).Select
+ActiveCell.FormulaR1C1 = _
+        "=RIGHT(RC[-1],LEN(RC[-1])-MIN(SEARCH({0,1,2,3,4,5,6,7,8,9},RC[-1]&""0123456789""))+1)"
+Worksheets("Data Entry Sheet").Range("B57").Value = Cells(PE.Row, PE.Column + 1).Value
+        
+End Sub
+Sub pull_companyprofile()
+
+Dim address As Range
+Dim employee As Range
+Dim industry As Range
+Dim company_name As Range
+
+Set address = Worksheets("Web Data").Range("A:A").Find("Company Info")
+Set employee = Worksheets("Web Data").Range("A:A").Find("Employees")
+Set industry = Worksheets("Web Data").Range("A:A").Find("Industry")
+Set company_name = Worksheets("Web Data").Range("A:A").Find("Description")
+
+Cells(employee.Row, employee.Column + 1).Select
+ActiveCell.FormulaR1C1 = _
+        "=RIGHT(RC[-1],LEN(RC[-1])-MIN(SEARCH({0,1,2,3,4,5,6,7,8,9},RC[-1]&""0123456789""))+1)"
+Worksheets("Data Entry Sheet").Range("B12").Value = Cells(employee.Row, employee.Column + 1).Value
+
+Cells(industry.Row, industry.Column + 1).Value = Mid(industry, 10)
+Worksheets("Data Entry Sheet").Range("B4").Value = Cells(industry.Row, industry.Column + 1).Value
+
+Cells(company_name.Row, company_name.Column + 1).Value = Mid(company_name, 12)
+Worksheets("Data Entry Sheet").Range("B2").Value = Cells(company_name.Row, company_name.Column + 1).Value
+
+Cells(address.Row + 2, address.Column + 1).Select
+    ActiveCell.FormulaR1C1 = "=RC[-1]&"", ""&R[1]C[-1]&"", ""&R[2]C[-1]"
+Worksheets("Data Entry Sheet").Range("B7").Value = Cells(address.Row + 2, address.Column + 1).Value
+
+
+
+End Sub
